@@ -1,7 +1,8 @@
 import React, { Component } from 'react'
 import styled from 'styled-components'
 import { gql } from 'apollo-boost'
-import { Query } from 'react-apollo'
+import { Mutation } from 'react-apollo'
+import { compose, withState } from 'recompose'
 
 const StyledSignupForm = styled.div`
   color: white;
@@ -10,10 +11,16 @@ const StyledSignupForm = styled.div`
   padding: 20px;
 `
 
-const GET_MOVIES = gql`
-  query {
-    allUsers {
-      nodes {
+const StyledInput = styled.input`
+  font-size: smaller;
+`
+
+const CREATE_USER = gql`
+  mutation CreateUser($firstName: String!, $lastName: String!) {
+    createUser(
+      input: { user: { firstName: $firstName, lastName: $lastName } }
+    ) {
+      user {
         id
         firstName
         lastName
@@ -21,26 +28,54 @@ const GET_MOVIES = gql`
     }
   }
 `
+const enhance = compose(
+  withState('firstName', 'setFirstName', ''),
+  withState('lastName', 'setLastName', '')
+)
 
-export default class SignupForm extends Component {
-  render() {
-    return (
-      <StyledSignupForm>
-        <Query query={GET_MOVIES}>
-          {({ loading, error, data }) => {
-            if (loading) return <div>Loading...</div>
-            if (error) return <div>Error :(</div>
-            if (data) {
-              return data.allUsers.nodes.map(x => (
-                <div key={x.id}>
-                  {x.firstName} {x.lastName}
-                </div>
-              ))
-            }
-            return ''
-          }}
-        </Query>
-      </StyledSignupForm>
-    )
-  }
+export default enhance(SignupForm)
+
+function SignupForm(props) {
+  const { firstName, setFirstName, lastName, setLastName } = props
+
+  return (
+    <StyledSignupForm>
+      <Mutation mutation={CREATE_USER}>
+        {(createUser, { loading, data }) => {
+          if (data) {
+            return <div>Thanks! We'll email you updates</div>
+          }
+          return (
+            <form
+              onSubmit={e => {
+                e.preventDefault()
+                createUser({ variables: { firstName, lastName } }).then(() => {
+                  setFirstName('')
+                  setLastName('')
+                })
+              }}
+            >
+              <div>
+                <StyledInput
+                  value={firstName}
+                  onChange={e => setFirstName(e.target.value)}
+                />
+              </div>
+              <div>
+                <StyledInput
+                  value={lastName}
+                  onChange={e => setLastName(e.target.value)}
+                />
+              </div>
+              <div>
+                <button type="submit" disabled={loading || data}>
+                  {loading ? 'Submitting...' : 'Submit'}
+                </button>
+              </div>
+            </form>
+          )
+        }}
+      </Mutation>
+    </StyledSignupForm>
+  )
 }
