@@ -6,12 +6,14 @@ const StyledBetterApp = styled.div`
   display: flex;
   justify-content: space-around;
   flex-direction: column;
-  padding: 20px;
+  padding: 15px;
 `
 
 const HeaderText = styled.div`
   font-size: xx-large;
   color: white;
+  font-family: Poppins, sans-serif;
+  font-weight: 500;
 `
 
 const MoreText = styled.div`
