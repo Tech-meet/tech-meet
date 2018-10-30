@@ -1,0 +1,12 @@
+type Pledge {
+  id: ID!
+  email: String!
+}
+
+type Query {
+  pledges: [Pledge!]!
+}
+
+type Mutation {
+  addPledge(email: String!): Pledge!
+}

@@ -1,4 +1,4 @@
-import React, { Component } from 'react'
+import React from 'react'
 import styled from 'styled-components'
 import { gql } from 'apollo-boost'
 import { Mutation } from 'react-apollo'
@@ -35,11 +35,9 @@ const StyledButton = styled.button`
 `
 
 const CREATE_USER = gql`
-  mutation CreateUser($email: String!) {
-    createPledge(input: { pledge: { email: $email } }) {
-      pledge {
-        email
-      }
+  mutation addPledge($email: String!) {
+    addPledge(email: $email) {
+      email
     }
   }
 `
