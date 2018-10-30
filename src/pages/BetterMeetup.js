@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import styled from 'styled-components'
-import SignupForm from './../components/SignupForm'
+import PledgeForm from '../components/PledgeForm'
 
 const StyledBetterApp = styled.div`
   display: flex;
@@ -41,7 +41,7 @@ export default class BetterMeetup extends Component {
           We did too. That's why we built a better alternative.
         </MoreText>
         <X>Want to try it? Sign up here.</X>
-        <SignupForm />
+        <PledgeForm />
         <WhatYoullGet>What you'll get: blah</WhatYoullGet>
       </StyledBetterApp>
     )

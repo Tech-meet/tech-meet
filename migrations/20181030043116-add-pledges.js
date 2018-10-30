@@ -17,7 +17,7 @@ exports.setup = function(options, seedLink) {
 exports.up = function(db) {
   return db.createTable('pledges', {
     id: { type: 'int', primaryKey: true, autoIncrement: true },
-    email: { type: 'string', length: 100, unique: true },
+    email: { type: 'string', length: 100, notNull: true, unique: true },
   })
 }
 
