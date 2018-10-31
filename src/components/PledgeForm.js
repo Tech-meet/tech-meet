@@ -52,6 +52,13 @@ const SuccessMessage = styled.div`
   color: lightcoral;
 `
 
+const StyledFormError = styled.div`
+  background: #eee;
+  padding: 10px;
+  border-radius: 5px;
+  color: red;
+`
+
 const CREATE_USER = gql`
   mutation addPledge($email: String!) {
     addPledge(email: $email) {
@@ -81,12 +88,25 @@ export default function PledgeForm(props) {
           <Formik
             initialValues={{ email: '' }}
             onSubmit={(values, actions) => {
-              createUser({ variables: values }).then(() => {
-                actions.setSubmitting(false)
-              })
+              createUser({ variables: values })
+                .catch(error => {
+                  if (error.message.match(/duplicate/)) {
+                    actions.setErrors({
+                      email: 'This email address has already signed up',
+                    })
+                  } else {
+                    actions.setStatus({
+                      message:
+                        'An unexpected error occurred. Please try again.',
+                    })
+                  }
+                })
+                .then(() => {
+                  actions.setSubmitting(false)
+                })
             }}
             validationSchema={schema}
-            render={({ errors, touched, isSubmitting }) => (
+            render={({ isSubmitting, status }) => (
               <StyledPledgeForm>
                 <StyledFormRow>
                   <StyledField
@@ -96,11 +116,13 @@ export default function PledgeForm(props) {
                   />
                   <ErrorMessage name="email" />
                 </StyledFormRow>
-                <div>
-                  <StyledButton type="submit" disabled={isSubmitting}>
-                    {isSubmitting ? 'Submitting...' : 'Submit'}
-                  </StyledButton>
-                </div>
+                <StyledButton type="submit" disabled={isSubmitting}>
+                  {isSubmitting ? 'Submitting...' : 'Submit'}
+                </StyledButton>
+                {status &&
+                  status.message && (
+                    <StyledFormError>{status.message}</StyledFormError>
+                  )}
               </StyledPledgeForm>
             )}
           />

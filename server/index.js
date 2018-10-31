@@ -7,6 +7,10 @@ require('dotenv').config()
 
 const typeDefs = fs.readFileSync(`${__dirname}/schema/typeDefs.graphql`, 'utf8')
 
+const catcher = developerMessage => error => {
+  console.error(developerMessage, error)
+}
+
 // We don't even technically need this part yet
 //
 // const app = express()
@@ -28,14 +32,17 @@ massive(
   }@${process.env.DEVELOPMENT_DB_HOST}:${process.env.DEVELOPMENT_DB_PORT}/${
     process.env.DEVELOPMENT_DB_NAME
   }?ssl=true`
-).then(db => {
-  console.log('Connected to database')
-
-  const gqlServer = new GraphQLServer({
-    typeDefs,
-    resolvers: makeResolvers(db),
+)
+  .then(db => {
+    const gqlServer = new GraphQLServer({
+      typeDefs,
+      resolvers: makeResolvers(db),
+    })
+    return gqlServer
+      .start(options)
+      .then(() => {
+        console.log(`GraphQL server is listening on port ${GRAPHQL_PORT}`)
+      })
+      .catch(catcher('Error starting graphql server'))
   })
-  gqlServer.start(options).then(() => {
-    console.log(`GraphQL server is listening on port ${GRAPHQL_PORT}`)
-  })
-})
+  .catch(catcher('Error connecting to massive'))
