@@ -4,7 +4,6 @@ import PledgeForm from '../components/PledgeForm'
 
 const StyledBetterApp = styled.div`
   display: flex;
-  justify-content: space-around;
   flex-direction: column;
   padding: 15px;
 `
