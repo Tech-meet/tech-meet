@@ -59,6 +59,10 @@ const StyledFormError = styled.div`
   color: red;
 `
 
+const StyledErrorMessage = styled(ErrorMessage)`
+  color: red;
+`
+
 const CREATE_USER = gql`
   mutation addPledge($email: String!) {
     addPledge(email: $email) {
@@ -73,10 +77,10 @@ const schema = object().shape({
     .required(),
 })
 
-export default function PledgeForm(props) {
+export default function PledgeForm() {
   return (
     <Mutation mutation={CREATE_USER}>
-      {(createUser, { loading, data }) => {
+      {(createUser, { data }) => {
         if (data) {
           return (
             <SuccessMessage>
@@ -114,7 +118,7 @@ export default function PledgeForm(props) {
                     name="email"
                     placeholder="Email address"
                   />
-                  <ErrorMessage name="email" />
+                  <StyledErrorMessage component="div" name="email" />
                 </StyledFormRow>
                 <StyledButton type="submit" disabled={isSubmitting}>
                   {isSubmitting ? 'Submitting...' : 'Submit'}
