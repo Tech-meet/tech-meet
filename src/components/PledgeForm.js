@@ -10,6 +10,10 @@ const StyledPledgeForm = styled(Form)`
   border: 1px white solid;
   border-radius: 5px;
   padding: 20px;
+
+  * + * {
+    margin-top: 15px;
+  }
 `
 
 const StyledField = styled(Field)`
