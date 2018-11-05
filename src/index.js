@@ -6,6 +6,7 @@ import * as serviceWorker from './serviceWorker'
 import { ApolloProvider } from 'react-apollo'
 import ApolloClient from 'apollo-boost'
 import { AppContainer } from 'react-hot-loader'
+import { BrowserRouter } from 'react-router-dom'
 
 const client = new ApolloClient()
 
@@ -13,7 +14,9 @@ const render = () => {
   ReactDOM.render(
     <AppContainer>
       <ApolloProvider client={client}>
-        <App />
+        <BrowserRouter>
+          <App />
+        </BrowserRouter>
       </ApolloProvider>
     </AppContainer>,
     document.getElementById('root')
