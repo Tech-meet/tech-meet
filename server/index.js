@@ -21,7 +21,7 @@ if (process.env.NODE_ENV === 'production') {
 }
 
 const nodeEnvUpper = (process.env.NODE_ENV || 'development').toUpperCase()
-massive(process.env['DATABASE_URL_' + nodeEnvUpper])
+massive(process.env['CONNECTION_STRING_' + nodeEnvUpper])
   .then(db => {
     const apolloServer = new ApolloServer({
       typeDefs,
