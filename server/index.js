@@ -21,14 +21,8 @@ if (process.env.NODE_ENV === 'production') {
 }
 
 const nodeEnvUpper = (process.env.NODE_ENV || 'development').toUpperCase()
-
-massive(
-  `postgres://${process.env[nodeEnvUpper + '_DB_USERNAME']}:${
-    process.env[nodeEnvUpper + '_DB_PASSWORD']
-  }@${process.env[nodeEnvUpper + '_DB_HOST']}:${
-    process.env[nodeEnvUpper + '_DB_PORT']
-  }/${process.env[nodeEnvUpper + '_DB_NAME']}?ssl=true`
-)
+console.log(process.env['CONNECTION_STRING_' + nodeEnvUpper])
+massive(process.env.CONNECTION_STRING_DEVELOPMENT)
   .then(db => {
     const apolloServer = new ApolloServer({
       typeDefs,
