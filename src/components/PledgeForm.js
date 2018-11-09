@@ -7,10 +7,10 @@ import { object, string } from 'yup'
 
 const StyledPledgeForm = styled(Form)`
   color: white;
-  border: 1px white solid;
-  border-radius: 5px;
-  padding: 20px;
-
+  padding: 20px 0;
+  display: flex;
+  flex-direction: column;
+  width: 100%;
   * + * {
     margin-top: 15px;
   }
@@ -18,11 +18,14 @@ const StyledPledgeForm = styled(Form)`
 
 const StyledField = styled(Field)`
   padding: 5px;
-  border-radius: 5px;
-  border: 1px #ccc solid;
+  border: none;
   box-shadow: none;
+  border-radius: 3px;
   color: #222;
   width: 200px;
+  height: 50px;
+  font-size: 18px;
+  width: 100%;
 `
 
 const StyledFormRow = styled.div`
@@ -31,17 +34,23 @@ const StyledFormRow = styled.div`
 `
 
 const StyledButton = styled.button`
-  background-color: #6a958e;
-  color: white;
-  font-size: large;
+  background-color: #e9e9e9;
+  color: #333333;
+  font-size: 20px;
   padding: 5px 10px;
   cursor: pointer;
   border: 0;
+  height: 40px;
+  font-weight: 500;
+  width: 150px;
   box-shadow: none;
-  border-radius: 5px;
+  border-radius: 2px;
+  align-self: center;
+  transition: 0.22s;
 
   :hover {
-    background-color: #547771;
+    background-color: #d4d4d4;
+    color: #777777;
   }
 
   :disabled {
@@ -53,7 +62,7 @@ const SuccessMessage = styled.div`
   background: #eee;
   padding: 10px;
   border-radius: 5px;
-  color: lightcoral;
+  color: #3252cd;
 `
 
 const StyledFormError = styled.div`

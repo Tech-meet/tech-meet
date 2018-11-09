@@ -1,0 +1,118 @@
+.better-meetup-container {
+  background: linear-gradient(
+      rgba(134, 134, 134, 0.5),
+      rgba(134, 134, 134, 0.5)
+    ),
+    url('./media/background.jpg');
+  background-position: center center;
+  background-size: cover;
+  background-repeat: no-repeat;
+  min-height: 100vh;
+  display: flex;
+
+  h1 {
+    font-size: 68px;
+    font-weight: 800;
+    text-shadow: 0.8px 0.8px 1.4px black;
+    margin-bottom: 10px;
+    letter-spacing: 0.8px;
+  }
+  h2 {
+    font-size: 42px;
+    text-shadow: 0.5px 0.5px 1px black;
+  }
+
+  .logo-container {
+    position: absolute;
+    top: 0;
+    left: 0;
+    padding: 10px;
+
+    > h1 {
+      font-family: 'Pacifico', cursive;
+      // font-family: 'Alfa Slab One', cursive;2
+      font-size: 42px;
+    }
+  }
+
+  > div {
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    font-family: Poppins;
+    justify-content: space-evenly;
+    padding: 90px 10px;
+    width: 100%;
+
+    > div {
+      color: white;
+      padding: 30px;
+    }
+
+    > div:first-child {
+      // align-self: flex-start;
+      font-weight: 800;
+      padding: 0;
+      max-width: 1000px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      flex-direction: column;
+      margin-bottom: 10px;
+    }
+
+    > div:nth-child(2) {
+      align-self: center;
+      width: 100%;
+      background: linear-gradient(
+        135deg,
+        rgb(45, 91, 158),
+        rgb(142, 193, 197),
+        rgb(204, 174, 207)
+      );
+
+      box-shadow: 0px 0px 5px rgba(0, 0, 0, 0.243);
+      max-width: 1000px;
+      font-size: 22px;
+      border-radius: 3px;
+
+      .disclaimer {
+        font-size: 16px;
+      }
+    }
+
+    > div:nth-child(3) {
+      max-width: 1000px;
+      padding: 0;
+      font-size: 22px;
+      margin-top: 10px;
+    }
+
+    @media (max-width: 650px) {
+      > div:nth-child(1) {
+        font-size: 16px;
+      }
+      > div:nth-child(2) {
+        font-size: 22px;
+        margin: 20px 0;
+      }
+      > div:nth-child(3) {
+        font-size: 18px;
+      }
+    }
+  }
+
+  @media (max-width: 650px) {
+    h1 {
+      font-size: 38px;
+    }
+    h2 {
+      font-size: 24px;
+    }
+
+    > div {
+      padding: 80px 10px;
+      margin: 20px 0;
+    }
+  }
+}
