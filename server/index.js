@@ -4,6 +4,7 @@ const { makeResolvers } = require('./schema/resolvers')
 const fs = require('fs')
 const massive = require('massive')
 const path = require('path')
+const { SERVER_PORT } = require('./config')
 require('dotenv').config()
 
 const typeDefs = fs.readFileSync(`${__dirname}/schema/typeDefs.graphql`, 'utf8')
@@ -20,15 +21,13 @@ if (process.env.NODE_ENV === 'production') {
   })
 }
 
-const nodeEnvUpper = (process.env.NODE_ENV || 'development').toUpperCase()
-massive(process.env['DATABASE_URL_' + nodeEnvUpper])
+massive(process.env.DATABASE_URL)
   .then(db => {
     const apolloServer = new ApolloServer({
       typeDefs,
       resolvers: makeResolvers(db),
     })
     apolloServer.applyMiddleware({ app, path: '/graphql' })
-    const SERVER_PORT = process.env.SERVER_PORT || 4000
     app.listen(SERVER_PORT, () => {
       console.log(`Server is listening on port ${SERVER_PORT}`)
     })

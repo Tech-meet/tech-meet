@@ -1,17 +1,5 @@
 {
-  "development": {
-    "driver": "pg",
-    "host": { "ENV": "DEVELOPMENT_DB_HOST" },
-    "user": { "ENV": "DEVELOPMENT_DB_USERNAME" },
-    "password": { "ENV": "DEVELOPMENT_DB_PASSWORD" },
-    "port": { "ENV": "DEVELOPMENT_DB_PORT" },
-    "database": { "ENV": "DEVELOPMENT_DB_NAME" },
-    "dialect": "postgres",
-    "ssl": true,
-    "dialectOptions": {
-      "ssl": {
-        "require": true
-      }
-    }
-  }
+  "defaultEnv": { "ENV": "NODE_ENV" },
+  "development": { "ENV": "DATABASE_URL" },
+  "test": { "ENV": "DATABASE_URL_TEST" }
 }

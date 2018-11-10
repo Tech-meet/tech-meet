@@ -1,9 +1,6 @@
 const proxy = require('http-proxy-middleware')
-require('dotenv').config()
+const { SERVER_PORT } = require('../server/config')
 
 module.exports = app => {
-  app.use(
-    '/graphql',
-    proxy({ target: `http://localhost:${process.env.SERVER_PORT}` })
-  )
+  app.use('/graphql', proxy({ target: `http://localhost:${SERVER_PORT}` }))
 }

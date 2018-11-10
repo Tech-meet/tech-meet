@@ -31,7 +31,10 @@
     "build": "react-app-rewired build",
     "test": "react-app-rewired test",
     "eject": "react-scripts eject",
-    "server": "nodemon --watch server --ext js,graphql"
+    "server": "nodemon --watch server --ext js,graphql",
+    "migrate:development": "NODE_ENV=development db-migrate up",
+    "migrate:test": "NODE_ENV=test db-migrate up",
+    "migrate": "npm run migrate:development && npm run migrate:test"
   },
   "eslintConfig": {
     "extends": "react-app"
