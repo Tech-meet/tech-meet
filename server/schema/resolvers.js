@@ -14,6 +14,9 @@ module.exports = {
         pledges() {
           return db.query('select * from pledges')
         },
+        getUser() {
+          return { id: 5 }
+        },
       },
       Mutation: {
         addPledge(_, args) {

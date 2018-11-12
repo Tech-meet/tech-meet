@@ -3,8 +3,15 @@ type Pledge {
   email: String!
 }
 
+type User {
+  id: ID!
+  email: String!
+  name: String!
+}
+
 type Query {
   pledges: [Pledge!]!
+  getUser: User
 }
 
 type Mutation {
