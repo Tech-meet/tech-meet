@@ -1,4 +1,4 @@
-import React, { Component } from 'react'
+import React, { Component, Suspense } from 'react'
 import { Route } from 'react-router-dom'
 import { Query } from 'react-apollo'
 import { gql } from 'apollo-boost'
@@ -14,22 +14,45 @@ const GET_USER = gql`
   }
 `
 
+let count = 0
+function MyAsyncComponentSFC() {
+  if (count > 0) {
+    return <div>hi</div>
+  }
+  throw new Promise(resolve =>
+    setTimeout(() => {
+      count++
+      resolve()
+    }, 2000)
+  )
+}
+
+class MyAsyncComponentClass extends Component {
+  state = {
+    count: 0,
+  }
+
+  render() {
+    if (this.state.count > 0) {
+      return <div>hi</div>
+    }
+    throw new Promise(resolve =>
+      setTimeout(() => {
+        this.setState({ count: this.state.count + 1 })
+        resolve()
+      }, 2000)
+    )
+  }
+}
 class App extends Component {
   render() {
     return (
-      <Query query={GET_USER}>
-        {({ data, loading }) => (
-          <div className="app-container">
-            <Nav />
-            <div>loading: {loading ? 'true' : 'false'}</div>
-            <Route
-              path="/"
-              exact
-              render={() => <>{data.getUser ? <Dashboard /> : <Home />}</>}
-            />
-          </div>
-        )}
-      </Query>
+      <div>
+        <Suspense maxDuration={1000} fallback={<div>Loading...</div>}>
+          asdf
+          <MyAsyncComponentClass />
+        </Suspense>
+      </div>
     )
   }
 }
